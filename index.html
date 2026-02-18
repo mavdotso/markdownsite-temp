@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown Site — Coming Soon</title>
-    <meta name="description" content="Publish beautiful websites from markdown files in seconds. No Git, no build steps, no complexity.">
+    <title>Markdown Site — Instant Markdown Hosting</title>
+    <meta name="description" content="Publish beautiful websites from markdown files in seconds. No Git, no build steps, no complexity. Upload a .md file, get an instant subdomain.">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Markdown Site — Instant Markdown Hosting">
+    <meta property="og:description" content="Upload a .md file, get an instant subdomain. No Git, no build steps, no complexity.">
+    <meta property="og:url" content="https://markdownsite.xyz">
+    <meta property="og:type" content="website">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
             background: #ffffff;
@@ -22,85 +27,215 @@
             justify-content: center;
             padding: 2rem;
         }
-        
+
         .container {
-            max-width: 600px;
+            max-width: 560px;
+            width: 100%;
             text-align: center;
         }
-        
+
+        .badge {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #555;
+            padding: 0.35rem 0.875rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 1.75rem;
+        }
+
         h1 {
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
         }
-        
+
         .tagline {
-            font-size: 1.25rem;
-            color: #666;
-            margin-bottom: 2rem;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2.5rem;
+            line-height: 1.65;
         }
-        
-        .status {
-            display: inline-block;
-            background: #f5f5f5;
-            padding: 0.75rem 1.5rem;
-            border-radius: 100px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 3rem;
-        }
-        
+
         .features {
             text-align: left;
             display: inline-block;
-            margin-bottom: 2rem;
+            margin-bottom: 2.75rem;
         }
-        
+
         .feature {
-            margin-bottom: 1rem;
-            font-size: 1rem;
+            margin-bottom: 0.875rem;
+            font-size: 0.9375rem;
             color: #333;
         }
-        
+
         .feature::before {
             content: "→";
             margin-right: 0.75rem;
             color: #000;
         }
-        
-        .footer {
-            margin-top: 3rem;
-            font-size: 0.875rem;
-            color: #999;
+
+        /* Email form */
+        .waitlist {
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            background: #fafafa;
         }
-        
-        @media (max-width: 640px) {
+
+        .waitlist-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #000;
+        }
+
+        .waitlist-sub {
+            font-size: 0.8125rem;
+            color: #777;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.625rem;
+        }
+
+        .form-row input[type="email"] {
+            flex: 1;
+            padding: 0.625rem 0.875rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            outline: none;
+            background: #fff;
+            color: #000;
+            transition: border-color 0.15s;
+        }
+
+        .form-row input[type="email"]:focus {
+            border-color: #000;
+        }
+
+        .form-row input[type="email"]::placeholder {
+            color: #bbb;
+        }
+
+        .form-row button {
+            padding: 0.625rem 1.25rem;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            transition: background 0.15s;
+        }
+
+        .form-row button:hover {
+            background: #222;
+        }
+
+        .form-privacy {
+            font-size: 0.75rem;
+            color: #aaa;
+            margin-top: 0.75rem;
+        }
+
+        /* Success state */
+        .success-msg {
+            display: none;
+            font-size: 0.875rem;
+            color: #16a34a;
+            font-weight: 500;
+            padding: 0.625rem;
+        }
+
+        .footer {
+            font-size: 0.8125rem;
+            color: #bbb;
+        }
+
+        @media (max-width: 480px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.25rem;
             }
-            
             .tagline {
                 font-size: 1rem;
+            }
+            .form-row {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="badge">🚧 Coming Soon</div>
+
         <h1>Markdown Site</h1>
-        <p class="tagline">Publish beautiful websites from markdown files in seconds. No Git, no build steps, no complexity.</p>
-        
-        <div class="status">🚧 Rebuilding — Coming Soon</div>
-        
+        <p class="tagline">Upload a .md file. Get an instant subdomain.<br>No Git, no build steps, no complexity.</p>
+
         <div class="features">
-            <div class="feature">Upload your .md file</div>
-            <div class="feature">Get instant subdomain (yourname.markdownsite.xyz)</div>
+            <div class="feature">yourname.markdownsite.xyz in seconds</div>
             <div class="feature">Beautiful themes, zero configuration</div>
+            <div class="feature">Free tier — no account required to start</div>
         </div>
-        
+
+        <!-- Waitlist form -->
+        <!-- TO CONFIGURE: Replace YOUR_FORM_ID below with your Buttondown username
+             or swap the action URL for Formspree/Loops/etc.
+             Buttondown: action="https://buttondown.email/api/emails/embed-subscribe/YOUR_USERNAME"
+             Formspree:  action="https://formspree.io/f/YOUR_FORM_ID"
+        -->
+        <div class="waitlist">
+            <div class="waitlist-label">Get notified when we launch</div>
+            <div class="waitlist-sub">Join the waitlist — no spam, one email when it's ready.</div>
+
+            <form
+                id="waitlist-form"
+                action="https://buttondown.email/api/emails/embed-subscribe/markdownsite"
+                method="POST"
+                target="popupwindow"
+                onsubmit="handleSubmit(event)"
+            >
+                <input type="hidden" name="tag" value="waitlist">
+                <div class="form-row">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        required
+                        autocomplete="email"
+                    >
+                    <button type="submit">Notify me</button>
+                </div>
+                <p class="form-privacy">No spam. Unsubscribe anytime.</p>
+            </form>
+            <p class="success-msg" id="success-msg">✓ You're on the list. We'll let you know when it's ready.</p>
+        </div>
+
         <div class="footer">markdownsite.xyz — Simple markdown hosting</div>
     </div>
+
+    <script>
+        function handleSubmit(e) {
+            // Let the form submit normally (Buttondown handles it)
+            // Then show success message
+            setTimeout(function() {
+                document.getElementById('waitlist-form').style.display = 'none';
+                document.getElementById('success-msg').style.display = 'block';
+            }, 800);
+        }
+    </script>
 </body>
 </html>
