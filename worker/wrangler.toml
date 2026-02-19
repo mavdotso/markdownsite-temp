@@ -1,0 +1,11 @@
+name = "markdownsite-waitlist"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "WAITLIST"
+id = "77c5356c630e4e57a5da301577f235e1"
+
+# Uncomment after enabling Email Routing in CF dashboard for markdownsite.xyz:
+# [[send_email]]
+# name = "EMAIL"

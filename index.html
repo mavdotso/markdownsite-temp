@@ -159,6 +159,12 @@
             font-weight: 500;
             padding: 0.625rem;
         }
+        .error-msg {
+            display: none;
+            font-size: 0.875rem;
+            color: #dc2626;
+            padding: 0.5rem 0;
+        }
 
         .footer {
             font-size: 0.8125rem;
@@ -191,50 +197,62 @@
             <div class="feature">Free tier — no account required to start</div>
         </div>
 
-        <!-- Waitlist form -->
-        <!-- TO CONFIGURE: Replace YOUR_FORM_ID below with your Buttondown username
-             or swap the action URL for Formspree/Loops/etc.
-             Buttondown: action="https://buttondown.email/api/emails/embed-subscribe/YOUR_USERNAME"
-             Formspree:  action="https://formspree.io/f/YOUR_FORM_ID"
-        -->
+        <!-- Waitlist form — powered by Cloudflare Worker + KV -->
         <div class="waitlist">
             <div class="waitlist-label">Get notified when we launch</div>
             <div class="waitlist-sub">Join the waitlist — no spam, one email when it's ready.</div>
 
-            <form
-                id="waitlist-form"
-                action="https://buttondown.email/api/emails/embed-subscribe/markdownsite"
-                method="POST"
-                target="popupwindow"
-                onsubmit="handleSubmit(event)"
-            >
-                <input type="hidden" name="tag" value="waitlist">
+            <form id="waitlist-form" onsubmit="handleSubmit(event)">
                 <div class="form-row">
                     <input
                         type="email"
                         name="email"
+                        id="email-input"
                         placeholder="you@example.com"
                         required
                         autocomplete="email"
                     >
-                    <button type="submit">Notify me</button>
+                    <button type="submit" id="submit-btn">Notify me</button>
                 </div>
                 <p class="form-privacy">No spam. Unsubscribe anytime.</p>
             </form>
             <p class="success-msg" id="success-msg">✓ You're on the list. We'll let you know when it's ready.</p>
+            <p class="error-msg" id="error-msg"></p>
         </div>
 
         <div class="footer">markdownsite.xyz — Simple markdown hosting</div>
     </div>
 
     <script>
-        function handleSubmit(e) {
-            // Let the form submit normally (Buttondown handles it)
-            // Then show success message
-            setTimeout(function() {
-                document.getElementById('waitlist-form').style.display = 'none';
-                document.getElementById('success-msg').style.display = 'block';
-            }, 800);
+        async function handleSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('email-input').value.trim();
+            const btn = document.getElementById('submit-btn');
+
+            btn.disabled = true;
+            btn.textContent = 'Joining...';
+
+            try {
+                const res = await fetch('https://markdownsite-waitlist.mavdotso.workers.dev', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email }),
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById('waitlist-form').style.display = 'none';
+                    document.getElementById('success-msg').style.display = 'block';
+                } else {
+                    throw new Error(data.error || 'Something went wrong');
+                }
+            } catch (err) {
+                btn.disabled = false;
+                btn.textContent = 'Notify me';
+                const errEl = document.getElementById('error-msg');
+                errEl.textContent = '⚠ ' + (err.message || 'Please try again.');
+                errEl.style.display = 'block';
+            }
         }
     </script>
 </body>
